@@ -20,7 +20,7 @@ def hello(world: dict) -> str:
     <a href="goto/entrance">Retreat.</a>"""
 
 
-ENCOUNTER_MONSTER = """
+ENCOUNTER_MONSTER_LAIR = """
 <!-- Curly braces let us inject values into the string -->
 You are in {}. You found a monster!<br>
 
@@ -35,7 +35,19 @@ What is its name?
     <input type="submit" value="Submit"><br>
 </form>
 """
+ENCOUNTER_MONSTER_FOREST = """
+You are in {}. You found a monster!<br>
 
+<img src="http://placecorgi.com/260/180" /><br>
+
+What is its name?
+
+<!-- Form allows you to have more text entry -->    
+<form action="/save/name/">
+    <input type="text" name="player"><br>
+    <input type="submit" value="Submit"><br>
+</form>
+"""
 
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
@@ -49,8 +61,9 @@ def open_door(world: dict, where: str) -> str:
     """
     world['location'] = where
     if world['location'] == "lair":
-        return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
-    elif world['location'] == ""
+        return GAME_HEADER+ENCOUNTER_MONSTER_LAIR.format(where)
+    elif world['location'] == "entrance":
+        return GAME_HEADER+
 
 
 @simple_route("/save/name/")
