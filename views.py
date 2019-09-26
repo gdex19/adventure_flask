@@ -36,19 +36,22 @@ What is its name?
 </form>
 """
 ENCOUNTER_MONSTER_FOREST = """
-You are in {}. You found a monster!<br>
+You are in the forest now. You found a Monster!<br>
 
-<img src="static/Forest.jpg" /><br>
-<img src="http://placecorgi.com/260/180" /><br>
+<img src="/static/Forest.jpg" width="400" height="200"/><br>
 
-What is its name?
+What would you like to do with it?
 
 <!-- Form allows you to have more text entry -->    
 <form action="/save/name/">
     <input type="text" name="player"><br>
+    <select name="action">
+        <option value="Drink it">Drink it</option>
     <input type="submit" value="Submit"><br>
 </form>
+
 """
+
 
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
