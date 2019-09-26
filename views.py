@@ -38,6 +38,7 @@ What is its name?
 ENCOUNTER_MONSTER_FOREST = """
 You are in {}. You found a monster!<br>
 
+<img src="static/Forest.jpg" /><br>
 <img src="http://placecorgi.com/260/180" /><br>
 
 What is its name?
@@ -63,7 +64,7 @@ def open_door(world: dict, where: str) -> str:
     if world['location'] == "lair":
         return GAME_HEADER+ENCOUNTER_MONSTER_LAIR.format(where)
     elif world['location'] == "entrance":
-        return GAME_HEADER+
+        return GAME_HEADER+ENCOUNTER_MONSTER_FOREST
 
 
 @simple_route("/save/name/")
