@@ -43,8 +43,7 @@ You are in the forest now. You found a Monster!<br>
 What would you like to do with it?
 
 <!-- Form allows you to have more text entry -->    
-<form action="/save/name/">
-    <input type="text" name="player"><br>
+<form action="/save/action/">
     <select name="action">
         <option value="Drink it">Drink it</option>
     <input type="submit" value="Submit"><br>
@@ -84,5 +83,5 @@ def save_name(world: dict, monsters_name: str) -> str:
     return GAME_HEADER+"""You are in {where}, and you are nearby {monster_name}
     <br><br>
     <a href='/'>Return to the start</a>
-    """.format(where=world['location'], monster_name=world['name'])
+    """.format(where=world['location'], monster_name=world['name'], monster_action_one=world['action'])
 
