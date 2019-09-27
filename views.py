@@ -45,7 +45,9 @@ What would you like to do with it?
 <!-- Form allows you to have more text entry -->    
 <form action="/save/action/">
     <select name="action">
-        <option value="Drink it">Drink it</option>
+        <option value="drink">Drink it</option>
+        <option value="run">Run away</option>
+        <option value="kyle">Find a Kyle to drink it for you</option>        
     <input type="submit" value="Submit"><br>
 </form>
 
