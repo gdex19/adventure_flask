@@ -53,7 +53,6 @@ What would you like to do with it?
 
 """
 
-
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
     """
@@ -69,6 +68,7 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER+ENCOUNTER_MONSTER_LAIR.format(where)
     elif world['location'] == "entrance":
         return GAME_HEADER+ENCOUNTER_MONSTER_FOREST
+    elif world['location'] == "save/"
 
 
 @simple_route("/save/name/")
