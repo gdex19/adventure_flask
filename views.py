@@ -1,6 +1,13 @@
-from flask import render_template
+from flask import Flask, render_template, request
 
 from route_helper import simple_route
+
+app = Flask(__name__)
+
+GAME_HEADER = """
+<h1>Welcome to adventure quest!</h1>
+<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
+"""
 
 
 @simple_route('/')
@@ -13,7 +20,7 @@ def hello(world: dict) -> str:
     """
     return render_template('welcome.html')
 
-
+'''
 ENCOUNTER_MONSTER_LAIR = """
 <!-- Curly braces let us inject values into the string -->
 You are in {}. You found a monster!<br>
@@ -46,6 +53,19 @@ What would you like to do with it?
 </form>
 
 """
+'''
+@simple_route('/goto')
+def open_doo(world: dict, where: str) -> str:
+    """
+    Update the player location and encounter a monster, prompting the player
+    to give them a name.
+
+    :param world: The current world
+    :param where: The new location to move to
+    :return: The HTML to show the player
+    """
+    values = request.values
+
 
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
@@ -58,10 +78,17 @@ def open_door(world: dict, where: str) -> str:
     :return: The HTML to show the player
     """
     world['location'] = where
-    if where == "lair":
-        return render_template('lair monster.html')
-    elif where == "forest":
+    if where == "forest":
         return render_template('forest.html')
+    elif where == "lair":
+        return render_template('lair.html')
+
+
+@app.route("/result", methods=['POST', 'GET'])
+def result():
+    if request.method == 'POST':
+        result = request.form
+        return render_template("result.html", result=result)
 
 
 @simple_route("/save/name/")
@@ -80,3 +107,6 @@ def save_name(world: dict, monsters_name: str) -> str:
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'], monster_action_one=world['action'])
 
+
+if __name__ == '__main__':
+    app.run(debug=True)
