@@ -58,10 +58,10 @@ def open_door(world: dict, where: str) -> str:
     :return: The HTML to show the player
     """
     world['location'] = where
-    if world['location'] == "lair":
-        return GAME_HEADER+ENCOUNTER_MONSTER_LAIR.format(where)
-    elif world['location'] == "entrance":
-        return GAME_HEADER+ENCOUNTER_MONSTER_FOREST
+    if where == "lair":
+        return render_template('lair monster.html')
+    elif where == "forest":
+        return render_template('forest.html')
 
 
 @simple_route("/save/name/")

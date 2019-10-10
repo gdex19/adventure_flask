@@ -5,6 +5,16 @@
     <title>The Forest</title>
 </head>
 <body>
-
+<h1>You are in the forest now. You found a Monster!</h1>
+<img src="/static/Forest.jpg" width="400" height="200"/><br>
+<a>What would you like to do with it?</a>
+<!-- Form allows you to have more text entry -->
+<form action="/goto/">
+    <select name="goto">
+        <option value="drink">Drink it</option>
+        <option value="run">Run away</option>
+        <option value="kyle">Find a Kyle to drink it for you</option>
+    <input type="submit" value="Submit"><br>
+</form>
 </body>
 </html>
