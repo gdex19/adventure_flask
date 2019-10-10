@@ -1,9 +1,6 @@
-from route_helper import simple_route
+from flask import render_template
 
-GAME_HEADER = """
-<h1>Welcome to adventure quest!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-"""
+from route_helper import simple_route
 
 
 @simple_route('/')
@@ -14,10 +11,7 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return GAME_HEADER+"""You are in the Lair of the Corgis.<br>
-    
-    <a href="goto/lair">Go further into the lair.</a><br>
-    <a href="goto/entrance">Retreat.</a>"""
+    return render_template('welcome.html')
 
 
 ENCOUNTER_MONSTER_LAIR = """
@@ -68,7 +62,6 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER+ENCOUNTER_MONSTER_LAIR.format(where)
     elif world['location'] == "entrance":
         return GAME_HEADER+ENCOUNTER_MONSTER_FOREST
-    elif world['location'] == "save/"
 
 
 @simple_route("/save/name/")
