@@ -86,9 +86,11 @@ def open_door(world: dict, where: str) -> str:
 
 @app.route("/result", methods=['POST', 'GET'])
 def result():
-    if request.method == 'POST':
-        result = request.form
-        return render_template("result.html", result=result)
+   if request.method == 'POST':
+      result = request.form
+      return render_template("result.html",result = result)
+
+
 
 
 @simple_route("/save/name/")
