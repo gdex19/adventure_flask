@@ -4,11 +4,6 @@ from route_helper import simple_route
 
 app = Flask(__name__)
 
-GAME_HEADER = """
-<h1>Welcome to adventure quest!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-"""
-
 
 @simple_route('/')
 def hello(world: dict) -> str:
@@ -54,17 +49,6 @@ What would you like to do with it?
 
 """
 '''
-@simple_route('/goto')
-def open_doo(world: dict, where: str) -> str:
-    """
-    Update the player location and encounter a monster, prompting the player
-    to give them a name.
-
-    :param world: The current world
-    :param where: The new location to move to
-    :return: The HTML to show the player
-    """
-    values = request.values
 
 
 @simple_route('/goto/<where>/')
@@ -93,14 +77,16 @@ def save_name(world: dict, monster_decision: str) -> str:
     :param world: The current world
     :return:
     """
-    world['action'] = monster_decision
-    if world['action'] == "Run away":
+    if monster_decision == "Run away":
         return render_template('no_monster.html')
+    elif monster_decision == "Find a Kyle to drink it for you":
+        return render_template('kyle.html')
+    elif monster_decision == "Drink it":
+        return render_template('drink_monster.html')
 
 
 @simple_route("/save/encounter/")
 def save_fight(world: dict, monster_fight_decision: str) -> str:
-    world['fight_status'] = monster_fight_decision
-    if world['fight_status'] == "Leave":
+    if monster_fight_decision == "Leave":
         return render_template('left_monster.html')
 

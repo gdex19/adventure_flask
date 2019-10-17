@@ -13,10 +13,7 @@ from flask import request, session, redirect
 
 from app import app
 
-INITIAL_WORLD = {
-    'actions': "",
-    'fight_status': ""
-}
+INITIAL_WORLD = {}
 
 
 def simple_route(path: str, **options):
@@ -53,6 +50,5 @@ def reset():
     :return: Redirection to '/'
     """
     session['world'] = "{}"
-    difficulty = 10
     return redirect('/')
 
