@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 from route_helper import simple_route
 
 import random
+
+
 app = Flask(__name__)
 
 difficulty = 10
@@ -65,7 +67,19 @@ def save_fight(world: dict, monster_fight_decision: str) -> str:
     elif monster_fight_decision == "Stay and fight!":
         return render_template('monster_fight.html', difficulty=difficulty)
 
+
 @simple_route("/save/ending/")
+def finish_game(world: dict, number_choice):
+    answer = random.randit(1, difficulty)
+    attempts = 1
+    assistance = "Impressive. You conquered him all by yourself!"
+    if answer == number_choice:
+        if difficulty == 3:
+            assistance = "With Kyle on your side, the monster stood no chance!"
+        elif difficulty == 5:
+            assistance = "Sugar and caffeine in your veins gave you the upper hand."
+        return render_template('monster_result.html', monster_choice="defeated", forest_monster_choice=assistance)
+
 
 
 
