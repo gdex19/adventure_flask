@@ -10,11 +10,12 @@
 <img src="/static/Forest.jpg" width="400" height="200"/><br>
 <a>What would you like to do with it?</a>
 <!-- Form allows you to have more text entry -->
-<form action= "http://localhost:5000/result" method = "POST">
-    <select name="result">
-        <option value="drink">Drink it</option>
-        <option value="run">Run away</option>
-        <option value="kyle">Find a Kyle to drink it for you</option>
+<form action="/save/result/">
+    Mood: <select name="monster_decision">
+        <option>Drink it</option>
+        <option>Run away</option>
+        <option>Find a Kyle to drink it for you</option>
+    </select><br>
     <input type="submit" value="Submit"><br>
 </form>
 </body>

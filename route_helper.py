@@ -13,7 +13,10 @@ from flask import request, session, redirect
 
 from app import app
 
-INITIAL_WORLD = {}
+INITIAL_WORLD = {
+    'actions': []
+}
+
 
 
 def simple_route(path: str, **options):
@@ -28,6 +31,7 @@ def simple_route(path: str, **options):
     :param options: Options to pass along to Flask's app.route. Usually you can ignore this.
     :return: Decorated function
     """
+
     def decorator(f):
         @app.route(path, **options)
         @wraps(f)

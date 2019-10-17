@@ -84,31 +84,15 @@ def open_door(world: dict, where: str) -> str:
         return render_template('lair.html')
 
 
-@app.route("/result", methods=['POST', 'GET'])
-def result():
-   if request.method == 'POST':
-      result = request.form
-      return render_template("result.html",result = result)
-
-
-
-
-@simple_route("/save/name/")
-def save_name(world: dict, monsters_name: str) -> str:
+@simple_route("/save/result/")
+def save_name(world: dict, monster_decision: str) -> str:
     """
     Update the name of the monster.
 
+    :param monster_decision:
     :param world: The current world
-    :param monsters_name:
     :return:
     """
-    world['name'] = monsters_name
-
-    return GAME_HEADER+"""You are in {where}, and you are nearby {monster_name}
-    <br><br>
-    <a href='/'>Return to the start</a>
-    """.format(where=world['location'], monster_name=world['name'], monster_action_one=world['action'])
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    world['action'] = monster_decision
+    if world['action'] == "Run away":
+        return render_template('no_monster.html')
