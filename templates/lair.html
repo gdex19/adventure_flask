@@ -9,6 +9,10 @@
 <a>Uh oh! Look at that thing!</a><br>
     <img src="/static/lair monster.jpg" width="400" height="200"/><br>
 <a>What will you do?</a>
-
-</body>
+<form action="/save/encounter/">
+    <select name="monster_fight_decision">
+        <option>Stay and fight!</option>
+        <option>Leave</option>
+    </select><br>
+    <input type="submit" value="Submit"><br>
 </html>

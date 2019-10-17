@@ -96,3 +96,11 @@ def save_name(world: dict, monster_decision: str) -> str:
     world['action'] = monster_decision
     if world['action'] == "Run away":
         return render_template('no_monster.html')
+
+
+@simple_route("/save/encounter/")
+def save_fight(world: dict, monster_fight_decision: str) -> str:
+    world['fight_status'] = monster_fight_decision
+    if world['fight_status'] == "Leave":
+        return render_template('left_monster.html')
+
