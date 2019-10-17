@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fight Time!</title>
+</head>
+<h1>You are fighting now...</h1>
+<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
+<a>Wow. This is very intense!</a><br>
+    <img src="/static/lair monster.jpg" width="400" height="200"/><br>
+<a>Pick a number between 1 and {{ difficulty }}</a>
+<form action="/save/ending/">
+        <input type="text" name="number_choice">
+    <input type="submit" value="Submit"><br>
+</html>

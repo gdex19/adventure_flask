@@ -2,7 +2,10 @@ from flask import Flask, render_template, request
 
 from route_helper import simple_route
 
+import random
 app = Flask(__name__)
+
+difficulty = 10
 
 
 @simple_route('/')
@@ -13,42 +16,9 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
+    global difficulty
+    difficulty = 10
     return render_template('welcome.html')
-
-'''
-ENCOUNTER_MONSTER_LAIR = """
-<!-- Curly braces let us inject values into the string -->
-You are in {}. You found a monster!<br>
-
-<!-- Image taken from site that generates random Corgi pictures-->
-<img src="http://placecorgi.com/260/180" /><br>
-    
-What is its name?
-
-<!-- Form allows you to have more text entry -->    
-<form action="/save/name/">
-    <input type="text" name="player"><br>
-    <input type="submit" value="Submit"><br>
-</form>
-"""
-ENCOUNTER_MONSTER_FOREST = """
-You are in the forest now. You found a Monster!<br>
-
-<img src="/static/Forest.jpg" width="400" height="200"/><br>
-
-What would you like to do with it?
-
-<!-- Form allows you to have more text entry -->    
-<form action="/save/action/">
-    <select name="action">
-        <option value="drink">Drink it</option>
-        <option value="run">Run away</option>
-        <option value="kyle">Find a Kyle to drink it for you</option>        
-    <input type="submit" value="Submit"><br>
-</form>
-
-"""
-'''
 
 
 @simple_route('/goto/<where>/')
@@ -77,11 +47,14 @@ def save_name(world: dict, monster_decision: str) -> str:
     :param world: The current world
     :return:
     """
+    global difficulty
     if monster_decision == "Run away":
         return render_template('no_monster.html')
     elif monster_decision == "Find a Kyle to drink it for you":
+        difficulty = 3
         return render_template('kyle.html')
     elif monster_decision == "Drink it":
+        difficulty = 5
         return render_template('drink_monster.html')
 
 
@@ -89,4 +62,10 @@ def save_name(world: dict, monster_decision: str) -> str:
 def save_fight(world: dict, monster_fight_decision: str) -> str:
     if monster_fight_decision == "Leave":
         return render_template('left_monster.html')
+    elif monster_fight_decision == "Stay and fight!":
+        return render_template('monster_fight.html', difficulty=difficulty)
+
+@simple_route("/save/ending/")
+
+
 
