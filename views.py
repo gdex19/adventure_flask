@@ -13,6 +13,8 @@ attempts = 0
 
 answers = []
 
+loss = False
+
 @simple_route('/')
 def hello(world: dict) -> str:
     """
@@ -24,9 +26,11 @@ def hello(world: dict) -> str:
     global difficulty
     global attempts
     global answers
+    global loss
     difficulty = 10
     attempts = 0
     answers = []
+    loss = False
     return render_template('welcome.html')
 
 
@@ -81,19 +85,30 @@ def finish_game(world: dict, number_choice):
     global attempts
     global answers
     answers.append(random.randint(1, difficulty))
-    assistance = "Impressive. You conquered him all by yourself!"
-    if int(number_choice) == answers[0]:
+    if number_choice not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
+        return render_template('monster_fight.html', difficulty=difficulty, attempts_left=3-attempts,
+                               health_status=(100-33.333*attempts), is_int="You must enter a number!")
+    elif int(number_choice) == answers[0]:
+        assistance = "Impressive. You conquered him all by yourself!"
         if difficulty == 3:
             assistance = "With Kyle on your side, the monster never stood a chance!"
+        elif difficulty == 5:
+            assistance = "The caffeine and sugar flowing through your veins led you to victory!"
         return render_template('monster_result.html', monster_choice="defeated", forest_monster_choice=assistance,
                                final_monster_fight="/static/monster_you_defeat.jpg")
-    elif attempts < 3:
+    elif attempts < 2:
         attempts += 1
         print(answers[0])
         return render_template('monster_fight.html', difficulty=difficulty, attempts_left=3-attempts,
                                health_status=(100-33.333*attempts))
-    elif attempts >= 3:
-        return render_template('welcome.html')
+    elif attempts >= 2:
+        assistance = "Without any help, you stood no chance against his peppers."
+        if difficulty == 3:
+            assistance = "How could you lose with Kyle on your side?"
+        elif difficulty == 5:
+            assistance = "Even full of sugar and caffeine, you could not prevail."
+        return render_template('monster_result.html', monster_choice="were slain by", forest_monster_choice=assistance,
+                               final_monster_fight="/static/defeated.jpg")
 
 
 
