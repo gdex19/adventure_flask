@@ -9,6 +9,9 @@ app = Flask(__name__)
 
 difficulty = 10
 
+attempts = 0
+
+answers = []
 
 @simple_route('/')
 def hello(world: dict) -> str:
@@ -19,7 +22,11 @@ def hello(world: dict) -> str:
     :return: The HTML to show the player
     """
     global difficulty
+    global attempts
+    global answers
     difficulty = 10
+    attempts = 0
+    answers = []
     return render_template('welcome.html')
 
 
@@ -62,23 +69,33 @@ def save_name(world: dict, monster_decision: str) -> str:
 
 @simple_route("/save/encounter/")
 def save_fight(world: dict, monster_fight_decision: str) -> str:
+    global attempts
     if monster_fight_decision == "Leave":
         return render_template('left_monster.html')
     elif monster_fight_decision == "Stay and fight!":
-        return render_template('monster_fight.html', difficulty=difficulty)
+        return render_template('monster_fight.html', difficulty=difficulty, attempts_left=3, health_status=100)
 
 
 @simple_route("/save/ending/")
 def finish_game(world: dict, number_choice):
-    answer = random.randit(1, difficulty)
-    attempts = 1
+    global attempts
+    global answers
+    answers.append(random.randint(1, difficulty))
     assistance = "Impressive. You conquered him all by yourself!"
-    if answer == number_choice:
+    if int(number_choice) == answers[0]:
         if difficulty == 3:
-            assistance = "With Kyle on your side, the monster stood no chance!"
-        elif difficulty == 5:
-            assistance = "Sugar and caffeine in your veins gave you the upper hand."
-        return render_template('monster_result.html', monster_choice="defeated", forest_monster_choice=assistance)
+            assistance = "With Kyle on your side, the monster never stood a chance!"
+        return render_template('monster_result.html', monster_choice="defeated", forest_monster_choice=assistance,
+                               final_monster_fight="/static/monster_you_defeat.jpg")
+    elif attempts < 3:
+        attempts += 1
+        print(answers[0])
+        return render_template('monster_fight.html', difficulty=difficulty, attempts_left=3-attempts,
+                               health_status=(100-33.333*attempts))
+    elif attempts >= 3:
+        return render_template('welcome.html')
+
+
 
 
 
