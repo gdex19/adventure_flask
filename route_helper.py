@@ -13,7 +13,12 @@ from flask import request, session, redirect
 
 from app import app
 
-INITIAL_WORLD = {}
+INITIAL_WORLD = {
+    'difficulty': 10,
+    'attempts': 0,
+    'answers': [],
+    'loss': False
+}
 
 
 def simple_route(path: str, **options):
