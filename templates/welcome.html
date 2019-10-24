@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome!</title>
-</head>
-
-<div class="alert alert-success" role="alert">
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome!</title>
+        <link href="static/css/bootstrap.css" rel="stylesheet">
+    </head>
+</html>
+<div class="alert alert-success text-center position-relative" role="alert">
   <h4 class="alert-heading">Welcome to Monster Search!</h4>
   <p>You are outside the Cave of Monsters.</p>
   <hr>
   <p class="mb-0">At any time you can <a href='/reset/'>reset</a> your game.</p>
 </div>
-<img src="/static/cave.jpg" width="400" height="200" /><br>
-<a href="goto/lair">Explore the Cave</a><br>
-<a href="goto/forest">Go to the Forest</a>
-</html>
+<div class="card rounded float-left" style="width: 25rem;">
+  <img src="static/cave.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">The Cave is this way!</p>
+    <a href="#" class="btn btn-primary stretched-link">Click to go</a>
+  </div>
+</div>
+<a href="goto/lair">Explore the Cave</a><a href="goto/forest">Go to the Forest</a>
+<div class="card rounded float-right" style="width: 25rem;">
+  <img src="static/cave.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">The Cave is this way!</p>
+    <a href="#" class="btn btn-primary stretched-link">Click to go</a>
+  </div>
+</div>
