@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>The Forest</title>
-</head>
-<body>
-<h1>You are in the forest now. You found a Monster!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-<img src="/static/Forest.jpg" width="400" height="200"/><br>
-<a>What would you like to do with it?</a>
-<!-- Form allows you to have more text entry -->
-<form action="/save/result/">
-    <select name="monster_decision">
-        <option>Drink it</option>
-        <option>Run away</option>
-        <option>Find a Kyle to drink it for you</option>
-    </select><br>
-    <input type="submit" value="Submit"><br>
-</form>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>The Forest</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
 </html>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <div class="alert alert-danger text-center position-relative" role="alert">
+            <h4 class="alert-heading">You are in the forest now.</h4>
+            <p>You found a Monster!</p>
+            <hr>
+            <p class="mb-0">At any time you can <a href='/reset/'>reset</a> your game.</p>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <img class="rounded" src="/static/Forest.jpg" width="407" height="400"/><br><br>
+      <p class="text-center">What would you like to do with it?</p>
+      <form action="/save/result/">
+        <select class="custom-select" name="monster_decision">
+            <option>Drink it</option>
+            <option>Run away</option>
+            <option>Find a Kyle to drink it for you</option>
+        </select><br><br>
+        <input type="submit" class="btn btn-outline-success align-self-center" value="Submit"><br>
+        </form>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
