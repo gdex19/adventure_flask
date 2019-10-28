@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lair</title>
-</head>
-<h1>You are in the lair now...</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-<a>Uh oh! Look at that thing!</a><br>
-    <img src="/static/lair monster.jpg" width="400" height="200"/><br>
-<a>What will you do?</a>
-<form action="/save/encounter/">
-    <select name="monster_fight_decision">
-        <option>Stay and fight!</option>
-        <option>Leave</option>
-    </select><br>
-    <input type="submit" value="Submit"><br>
+    <head>
+        <meta charset="utf-8">
+        <title>The Lair</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
 </html>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="alert alert-success text-center position-relative shadow-sm" role="alert">
+                <h4 class="alert-heading">You are in the lair now...</h4>
+                <p>Uh oh. Look at that thing!</p>
+                <hr>
+                <p class="mb-0">At any time you can <a href='/reset/'>reset</a> your game.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <img class="rounded" src="/static/lair monster.jpg" height="300"/><br><br>
+      <p class="text-center">What will you do?</p>
+      <form action="/save/encounter/">
+        <select class="custom-select" name="monster_fight_decision">
+            <option>Stay and fight!</option>
+            <option>Leave</option>
+        </select><br><br>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+                    <input type="submit" class="btn btn-outline-dark text-center" value="Submit"><br>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>

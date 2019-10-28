@@ -7,10 +7,13 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
 </html>
+<style type="text/css">
+   body { background: rgba(93, 174, 93, 0.27) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style>
 <div class="container">
   <div class="row">
     <div class="col-sm">
-        <div class="alert alert-danger text-center position-relative" role="alert">
+        <div class="alert alert-danger text-center position-relative shadow-sm" role="alert">
             <h4 class="alert-heading">You are in the forest now.</h4>
             <p>You found a Monster!</p>
             <hr>
@@ -60,8 +63,7 @@
         <div class="col">
         </div>
         <div class="col">
-            <input type="submit" class="btn btn-outline-success text-center" value="Submit"><br>
-            </div>
+                    <input type="submit" class="btn btn-outline-dark text-center" value="Submit"><br>
         </div>
         <div class="col">
         </div>
