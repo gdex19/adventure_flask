@@ -1,18 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Fight Time!</title>
-</head>
-<h1>You are fighting now...</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-<a>Wow. This is very intense!</a><br>
-<a>You have {{ attempts_left }} more tries to beat the monster.</a><br>
-<img src="/static/lair monster.jpg" width="400" height="200"/><br>
-<progress id="health" value={{ health_status }} max="100"></progress><br>
-<a>Pick a number between 1 and {{ difficulty }}</a>
-<form action="/save/ending/">
-        <input type="text" name="number_choice">
-    <input type="submit" value="Submit"><br>
-    <a>{{ is_int }}</a>
+    <head>
+        <meta charset="utf-8">
+        <title>Fight Time!</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
 </html>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div class="alert alert-warning text-center position-relative shadow-sm" role="alert">
+                <h4 class="alert-heading">You are fighting now...</h4>
+                 <a>Wow. This is very intense!</a>
+                 <p>You have {{ attempts_left }} more tries to beat the monster.</p>
+                <hr>
+                <p class="mb-0">At any time you can <a href='/reset/'>reset</a> your game.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <img src="/static/lair monster.jpg" class="rounded" height="300"/><br><br>
+        <div class="progress">
+            <div class="progress-bar bg-danger progress-bar-striped text-bold" id="health" role="progressbar" style="width: {{health_status}}%" aria-valuenow="{{health_status}}"
+                 aria-valuemin="0" aria-valuemax="100">{{ health_status }}
+            </div>
+        </div>
+        <form action="/save/ending/">
+            <label class="text-center"><br>Pick a number between 1 and {{ difficulty }}</label>
+            <input class="form-control" placeholder="{{ is_int }}" type="text" name="number_choice"><br>
+    </div>
+    <div class="col-sm">
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+                    <input type="submit" class="btn btn-outline-dark text-center" value="Submit"><br>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+

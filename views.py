@@ -69,7 +69,7 @@ def finish_game(world: dict, number_choice):
     world['answers'].append(random.randint(1, world['difficulty']))
     if number_choice not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
-                               health_status=(100-33.333*world['attempts']), is_int="You must enter a number!")
+                               health_status=round(100-33.333*world['attempts']), is_int="You must enter a number!")
     elif int(number_choice) == world['answers'][0]:
         assistance = "Impressive. You conquered him all by yourself!"
         if world['difficulty'] == 3:
@@ -82,7 +82,7 @@ def finish_game(world: dict, number_choice):
         world['attempts'] += 1
         print(world['answers'][0])
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
-                               health_status=(100-33.333*world['attempts']))
+                               health_status=round(100-33.333*world['attempts']))
     elif world['attempts'] >= 2:
         assistance = "Without any help, you stood no chance against his peppers."
         if world['difficulty'] == 3:
