@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Monster Aftermath</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>The Aftermath</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
+</html>
 <body>
-<h1>You {{ monster_choice }} the monster{{ peppers }}!</h1>
-<p>{{ forest_monster_choice }}</p>
-<img src={{final_monster_fight}} height="350"/><br>
-<a>Would you like to play <a href='/reset/'>again</a>?</a>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <div class="alert alert-dark text-center position-relative shadow-sm" role="alert">
+            <h4 class="alert-heading">You {{ monster_choice }} the monster{{ peppers }}!</h4>
+            <p>{{ forest_monster_choice }}</p>
+            <hr>
+            <p class="mb-0"><a>Would you like to play <a href='/reset/'>again</a>?</a></p>
+        </div>
+    </div>
+  </div>
+</div>
+<img src={{final_monster_fight}} height="500" style="display: block; margin-left: auto; margin-right: auto"><br>
+
