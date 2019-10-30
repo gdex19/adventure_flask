@@ -67,9 +67,17 @@ def save_fight(world: dict, monster_fight_decision: str) -> str:
 @simple_route("/save/ending/")
 def finish_game(world: dict, number_choice):
     world['answers'].append(random.randint(1, world['difficulty']))
-    if number_choice not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
+    if not str.isdigit(number_choice.replace(".", "")):
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']), is_int="You must enter a number!")
+    elif float(number_choice) != int(float(number_choice)) / 1:
+        return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
+                               health_status=round(100-33.333*world['attempts']),
+                               is_int="Enter a whole number!")
+    elif int(number_choice) not in range(1, 10):
+        return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
+                               health_status=round(100-33.333*world['attempts']),
+                               is_int="Keep the number between 1 and 10!")
     elif int(number_choice) == world['answers'][0]:
         assistance = "Impressive. You conquered him all by yourself!"
         if world['difficulty'] == 3:
@@ -91,6 +99,8 @@ def finish_game(world: dict, number_choice):
             assistance = "Even full of sugar and caffeine, you could not prevail."
         return render_template('monster_result.html', monster_choice="were slain by", forest_monster_choice=assistance,
                                final_monster_fight="/static/defeated.jpg")
+
+
 
 
 
