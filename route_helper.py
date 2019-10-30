@@ -17,7 +17,8 @@ INITIAL_WORLD = {
     'difficulty': 10,
     'attempts': 0,
     'answers': [],
-    'loss': False
+    'loss': False,
+    'assistance': ""
 }
 
 
