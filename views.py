@@ -93,7 +93,7 @@ def finish_game(world: dict, number_choice):
 
 
 def change_prompt(guess: str, values: dict):
-    if not str.isdigit(guess.replace(".", "")):
+    if not str.isdigit(guess.replace(".", "").replace("-", "").replace("^", "")):
         values['correction'] = "You must enter a number!"
         return 1
     elif float(guess) != int(float(guess)):
