@@ -71,22 +71,22 @@ def finish_game(world: dict, number_choice):
     if result == 1:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']), is_int=world['correction'])
-    if result == 2:
+    elif result == 2:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
                                is_int=world['correction'])
-    if result == 3:
+    elif result == 3:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
                                is_int=world['correction'])
-    if result == 4:
+    elif result == 4:
         return render_template('monster_result.html', monster_choice=world['result'],
                                forest_monster_choice=world['assistance'],
                                final_monster_fight="/static/monster_you_defeat.jpg")
-    if result == 5:
+    elif result == 5:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']))
-    if result == 6:
+    elif result == 6:
         return render_template('monster_result.html', monster_choice=world['result'],
                                forest_monster_choice=world['assistance'], final_monster_fight="/static/defeated.jpg")
 
