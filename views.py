@@ -67,39 +67,65 @@ def save_fight(world: dict, monster_fight_decision: str) -> str:
 @simple_route("/save/ending/")
 def finish_game(world: dict, number_choice):
     world['answers'].append(random.randint(1, world['difficulty']))
-    if not str.isdigit(number_choice.replace(".", "")):
+    assistance = ""
+    result = assistance_status(change_prompt(number_choice, world), number_choice, world)
+    print(result)
+    if result == 1:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']), is_int="You must enter a number!")
-    elif float(number_choice) != int(float(number_choice)) / 1:
+    if result == 2:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
                                is_int="Enter a whole number!")
-    elif int(number_choice) not in range(1, 10):
+    if result == 3:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
-                               is_int="Keep the number between 1 and 10!")
-    elif int(number_choice) == world['answers'][0]:
-        assistance = "Impressive. You conquered him all by yourself!"
-        if world['difficulty'] == 3:
-            assistance = "With Kyle on your side, the monster never stood a chance!"
-        elif world['difficulty'] == 5:
-            assistance = "The caffeine and sugar flowing through your veins led you to victory!"
+                               is_int="Keep the number between 1 and {}!".format(world['difficulty']))
+    if result == 4:
         return render_template('monster_result.html', monster_choice="defeated", forest_monster_choice=assistance,
                                final_monster_fight="/static/monster_you_defeat.jpg")
-    elif world['attempts'] < 2:
-        world['attempts'] += 1
-        print(world['answers'][0])
+    if result == 5:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']))
-    elif world['attempts'] >= 2:
-        assistance = "Without any help, you stood no chance against his peppers."
-        if world['difficulty'] == 3:
-            assistance = "How could you lose with Kyle on your side?"
-        elif world['difficulty'] == 5:
-            assistance = "Even full of sugar and caffeine, you could not prevail."
+    if result == 6:
         return render_template('monster_result.html', monster_choice="were slain by", forest_monster_choice=assistance,
                                final_monster_fight="/static/defeated.jpg")
 
+
+def change_prompt(guess: str, values: dict):
+    if not str.isdigit(guess.replace(".", "")):
+        return 1
+    elif float(guess) != int(float(guess)):
+        return 2
+    elif int(float(guess)) not in range(1, values['difficulty'] + 1):
+        return 3
+    else:
+        return 0
+
+
+def assistance_status(number: int, guess: str, values: dict):
+    if number in [1, 2, 3]:
+        return number
+    elif int(float(guess)) == values['answers'][0]:
+        assistance = "Impressive. You conquered him all by yourself!"
+        if values['difficulty'] == 3:
+            assistance = "With Kyle on your side, the monster never stood a chance!"
+            return 4
+        elif values['difficulty'] == 5:
+            assistance = "The caffeine and sugar flowing through your veins led you to victory!"
+            return 4
+        else:
+            return 4
+    elif values['attempts'] < 2:
+        values['attempts'] += 1
+        return 5
+    elif values['attempts'] >= 2:
+        assistance = "Without any help, you stood no chance against his peppers."
+        if values['difficulty'] == 3:
+            assistance = "How could you lose with Kyle on your side?"
+        elif values['difficulty'] == 5:
+            assistance = "Even full of sugar and caffeine, you could not prevail."
+        return 6
 
 
 
