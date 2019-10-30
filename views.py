@@ -71,33 +71,36 @@ def finish_game(world: dict, number_choice):
     print(result)
     if result == 1:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
-                               health_status=round(100-33.333*world['attempts']), is_int="You must enter a number!")
+                               health_status=round(100-33.333*world['attempts']), is_int=world['correction'])
     if result == 2:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
-                               is_int="Enter a whole number!")
+                               is_int=world['correction'])
     if result == 3:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']),
-                               is_int="Keep the number between 1 and {}!".format(world['difficulty']))
+                               is_int=world['correction'])
     if result == 4:
-        return render_template('monster_result.html', monster_choice="defeated",
+        return render_template('monster_result.html', monster_choice=world['result'],
                                forest_monster_choice=world['assistance'],
                                final_monster_fight="/static/monster_you_defeat.jpg")
     if result == 5:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']))
     if result == 6:
-        return render_template('monster_result.html', monster_choice="were slain by",
+        return render_template('monster_result.html', monster_choice=world['result'],
                                forest_monster_choice=world['assistance'], final_monster_fight="/static/defeated.jpg")
 
 
 def change_prompt(guess: str, values: dict):
     if not str.isdigit(guess.replace(".", "")):
+        values['correction'] = "You must enter a number!"
         return 1
     elif float(guess) != int(float(guess)):
+        values['correction'] = "Enter a whole number!"
         return 2
     elif int(float(guess)) not in range(1, values['difficulty'] + 1):
+        values['correction'] = "Keep the number between 1 and {}!".format(values['difficulty'])
         return 3
     else:
         return 0
@@ -107,21 +110,25 @@ def win_lose(number: int, guess: str, values: dict):
     if number in [1, 2, 3]:
         return number
     elif int(float(guess)) == values['answers'][0]:
-        values['assistance'] = "Impressive. You conquered him all by yourself!"
+        values['result'] = "defeated"
         if values['difficulty'] == 3:
             values['assistance'] = "With Kyle on your side, the monster never stood a chance!"
         elif values['difficulty'] == 5:
             values['assistance'] = "The caffeine and sugar flowing through your veins led you to victory!"
+        else:
+            values['assistance'] = "Impressive. You conquered him all by yourself!"
         return 4
     elif values['attempts'] < 2:
         values['attempts'] += 1
         return 5
     elif values['attempts'] >= 2:
-        values['assistance'] = "Without any help, you stood no chance against his peppers."
+        values['result'] = "were slain by"
         if values['difficulty'] == 3:
             values['assistance'] = "How could you lose with Kyle on your side?"
         elif values['difficulty'] == 5:
             values['assistance'] = "Even full of sugar and caffeine, you could not prevail."
+        else:
+            values['assistance'] = "Without any help, you stood no chance against his peppers."
         return 6
 
 
