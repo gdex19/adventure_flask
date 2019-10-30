@@ -68,7 +68,6 @@ def save_fight(world: dict, monster_fight_decision: str) -> str:
 def finish_game(world: dict, number_choice):
     world['answers'].append(random.randint(1, world['difficulty']))
     result = win_lose(change_prompt(number_choice, world), number_choice, world)
-    print(result)
     if result == 1:
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3-world['attempts'],
                                health_status=round(100-33.333*world['attempts']), is_int=world['correction'])
