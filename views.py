@@ -11,7 +11,7 @@ app = Flask(__name__)
 @simple_route('/')
 def hello(world: dict) -> str:
     """
-    The welcome screen for the game.
+    The start screen for the game.
 
     :param world: The current world
     :return: The HTML to show the player
@@ -22,8 +22,7 @@ def hello(world: dict) -> str:
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
     """
-    Update the player location and encounter a monster, prompting the player
-    to give them a name.
+    Update the player location and prompt them with a decision.
 
     :param world: The current world
     :param where: The new location to move to
@@ -39,11 +38,11 @@ def open_door(world: dict, where: str) -> str:
 @simple_route("/save/result/")
 def save_name(world: dict, monster_decision: str) -> str:
     """
-    Update the name of the monster.
+    Receives decision about Monster, changes difficulty and loads appropriate page.
 
-    :param monster_decision:
+    :param monster_decision: the choice that the player makes with Monster.
     :param world: The current world
-    :return:
+    :return: html page as result of decision
     """
     if monster_decision == "Run away":
         return render_template('no_monster.html')
@@ -57,15 +56,83 @@ def save_name(world: dict, monster_decision: str) -> str:
 
 @simple_route("/save/encounter/")
 def save_fight(world: dict, monster_fight_decision: str) -> str:
+    """
+    Loads appropriate page with variables on the if necessary.
+
+    :param monster_fight_decision: the choice that the player against blue monster.
+    :param world: The current world
+    :return: html page as result of decision with variables.
+    """
     if monster_fight_decision == "Leave":
         return render_template('left_monster.html')
     elif monster_fight_decision == "Stay and fight!":
-        print(world['difficulty'])
         return render_template('monster_fight.html', difficulty=world['difficulty'], attempts_left=3, health_status=100)
+
+
+def change_prompt(number_choice: str, world: dict):
+    """
+        Puts a correction in the input box if type is wrong
+
+        :param number_choice: player's input in box
+        :param world: The current world
+        :return: a number relating to an html page on finish_game
+        """
+    if not str.isdigit(number_choice.replace(".", "").replace("-", "").replace("^", "")):
+        world['correction'] = "You must enter a number!"
+        return 1
+    elif float(number_choice) != int(float(number_choice)):
+        world['correction'] = "Enter a whole number!"
+        return 2
+    elif int(float(number_choice)) not in range(1, world['difficulty'] + 1):
+        world['correction'] = "Keep the number between 1 and {}!".format(world['difficulty'])
+        return 3
+    else:
+        return 0
+
+
+def win_lose(number: int, number_choice: str, world: dict):
+    """
+        Changes strings on final page with respect to difficulty and determines win and loss.
+
+        :param number: the number returned by change_prompt
+        :param number_choice: player's input in box
+        :param world: The current world
+        :return: a number relating to the appropriate html page to load.
+        """
+    if number in [1, 2, 3]:
+        return number
+    elif int(float(number_choice)) == world['answers'][0]:
+        world['result'] = "defeated"
+        if world['difficulty'] == 3:
+            world['assistance'] = "With Kyle on your side, the monster never stood a chance!"
+        elif world['difficulty'] == 5:
+            world['assistance'] = "The caffeine and sugar flowing through your veins led you to victory!"
+        else:
+            world['assistance'] = "Impressive. You conquered him all by yourself!"
+        return 4
+    elif world['attempts'] < 2:
+        world['attempts'] += 1
+        return 5
+    elif world['attempts'] >= 2:
+        world['result'] = "were slain by"
+        if world['difficulty'] == 3:
+            world['assistance'] = "How could you lose with Kyle on your side?"
+        elif world['difficulty'] == 5:
+            world['assistance'] = "Even full of sugar and caffeine, you could not prevail."
+        else:
+            world['assistance'] = "Without any help, you stood no chance against his peppers."
+        return 6
 
 
 @simple_route("/save/ending/")
 def finish_game(world: dict, number_choice):
+    """
+    Finishes game with a final page (or guessing page) with variables from world and sets "answer" to guessing game.
+
+    :param number_choice: player's input in box
+    :param world: The current world
+    :return: html page as result of number returned by win_lose
+    """
     world['answers'].append(random.randint(1, world['difficulty']))
     result = win_lose(change_prompt(number_choice, world), number_choice, world)
     if result == 1:
@@ -89,50 +156,3 @@ def finish_game(world: dict, number_choice):
     elif result == 6:
         return render_template('monster_result.html', monster_choice=world['result'],
                                forest_monster_choice=world['assistance'], final_monster_fight="/static/defeated.jpg")
-
-
-def change_prompt(guess: str, values: dict):
-    if not str.isdigit(guess.replace(".", "").replace("-", "").replace("^", "")):
-        values['correction'] = "You must enter a number!"
-        return 1
-    elif float(guess) != int(float(guess)):
-        values['correction'] = "Enter a whole number!"
-        return 2
-    elif int(float(guess)) not in range(1, values['difficulty'] + 1):
-        values['correction'] = "Keep the number between 1 and {}!".format(values['difficulty'])
-        return 3
-    else:
-        return 0
-
-
-def win_lose(number: int, guess: str, values: dict):
-    if number in [1, 2, 3]:
-        return number
-    elif int(float(guess)) == values['answers'][0]:
-        values['result'] = "defeated"
-        if values['difficulty'] == 3:
-            values['assistance'] = "With Kyle on your side, the monster never stood a chance!"
-        elif values['difficulty'] == 5:
-            values['assistance'] = "The caffeine and sugar flowing through your veins led you to victory!"
-        else:
-            values['assistance'] = "Impressive. You conquered him all by yourself!"
-        return 4
-    elif values['attempts'] < 2:
-        values['attempts'] += 1
-        return 5
-    elif values['attempts'] >= 2:
-        values['result'] = "were slain by"
-        if values['difficulty'] == 3:
-            values['assistance'] = "How could you lose with Kyle on your side?"
-        elif values['difficulty'] == 5:
-            values['assistance'] = "Even full of sugar and caffeine, you could not prevail."
-        else:
-            values['assistance'] = "Without any help, you stood no chance against his peppers."
-        return 6
-
-
-
-
-
-
-
